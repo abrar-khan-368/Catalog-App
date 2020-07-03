@@ -15,6 +15,14 @@
       },
       "oauth_client": [
         {
+          "client_id": "1030182306696-dlk9784htd6j5lnd11iuuing2hdm24hg.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.abrarlohia.dressmaterialcatalog",
+            "certificate_hash": "150074d876a8c39418469619c1a927d49f6c469c"
+          }
+        },
+        {
           "client_id": "1030182306696-2j6snfla3nsdp9a22qog8cub68qi0igc.apps.googleusercontent.com",
           "client_type": 3
         }
