@@ -17,9 +17,9 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:paddingTop="8dp"
-        android:text="Welcome"
+        android:text="नमस्ते"
         android:textColor="@color/white"
-        android:textSize="25sp" />
+        android:textSize="35sp" />
 
 
 </LinearLayout>
