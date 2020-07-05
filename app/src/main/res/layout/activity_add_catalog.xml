@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/cnt_back"
+    tools:context=".AddCatalog">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:layout_margin="20sp">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/averia_libre_light"
+            android:textSize="38sp"
+            android:text="Add Catalog"
+            android:textColor="@color/white"
+            android:gravity="center"
+            android:layout_marginTop="50sp"/>
+
+        <EditText
+            android:id="@+id/catalog_name"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/contact_us_back"
+            android:ems="15"
+            android:hint="Catalog Name"
+            android:inputType="text"
+            android:textAlignment="center"
+            android:textColor="@color/white"
+            android:textColorHint="@color/white"
+            android:layout_marginTop="50sp"/>
+
+        <EditText
+            android:id="@+id/catalog_costing"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/contact_us_back"
+            android:ems="15"
+            android:hint="Catalog Costing"
+            android:inputType="number"
+            android:textAlignment="center"
+            android:textColor="@color/white"
+            android:textColorHint="@color/white"
+            android:layout_marginTop="20sp"/>
+
+        <Spinner
+            android:id="@+id/category_type"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20sp"
+            android:background="@drawable/contact_us_back"/>
+
+        <androidx.appcompat.widget.AppCompatImageButton
+            android:id="@+id/catalog_images"
+            android:layout_width="300sp"
+            android:layout_height="150sp"
+            android:layout_gravity="center"
+            android:layout_marginTop="20sp"
+            android:scaleType="fitCenter"
+            android:tooltipText="Tap here to select product images"
+            android:src="@drawable/ic_image_placeholder" />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/image_display"
+            android:layout_width="match_parent"
+            android:layout_height="76dp"
+            android:layout_marginTop="20sp"/>
+
+        <Button
+            android:id="@+id/add_catalog"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="32dp"
+            android:layout_marginEnd="8dp"
+            android:background="@drawable/submit"
+            android:textSize="20sp"
+            android:fontFamily="@font/averia_libre_light"
+            android:text="Add Catalog"
+            android:layout_gravity="center"
+            android:textColor="@color/white"
+            android:textStyle="bold"/>
+
+    </LinearLayout>
+
+</ScrollView>
