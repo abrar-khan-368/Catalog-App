@@ -5,14 +5,98 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <TextView
-        android:id="@+id/textView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="306dp"
-        android:text="Notification fragment"
-        android:textSize="30sp"
+    <androidx.cardview.widget.CardView
+        android:id="@+id/stock"
+        android:layout_width="match_parent"
+        android:layout_height="100sp"
+        android:layout_gravity="center"
+        android:layout_marginStart="10sp"
+        android:layout_marginTop="10sp"
+        android:layout_marginEnd="10sp"
+        app:cardBackgroundColor="@android:color/transparent"
+        app:cardCornerRadius="0sp"
+        app:cardElevation="3sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent">
+        <RelativeLayout
+            android:id="@+id/noti_stock"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <TextView
+                android:id="@+id/stock_1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentStart="true"
+                android:layout_alignParentEnd="true"
+                android:layout_marginStart="10sp"
+                android:layout_marginTop="10sp"
+                android:layout_marginEnd="20sp"
+                android:fontFamily="@font/andika"
+                android:text="New Stock available"
+                android:textSize="20sp"
+                android:textStyle="bold" />
+            <TextView
+                android:id="@+id/stock_2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentStart="true"
+                android:layout_alignParentEnd="true"
+                android:layout_marginStart="10sp"
+                android:layout_marginTop="55sp"
+                android:layout_marginEnd="20sp"
+                android:fontFamily="@font/andika"
+                android:text="Check our new products"
+                android:textSize="18sp"
+               />
+
+        </RelativeLayout>
+    </androidx.cardview.widget.CardView>
+    <androidx.cardview.widget.CardView
+        android:id="@+id/stock_second"
+        android:layout_width="match_parent"
+        android:layout_height="100sp"
+        android:layout_gravity="center"
+        android:layout_marginStart="10sp"
+        android:layout_marginTop="120sp"
+        android:layout_marginEnd="10sp"
+        app:cardBackgroundColor="@android:color/transparent"
+        app:cardCornerRadius="0sp"
+        app:cardElevation="3sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+        <RelativeLayout
+            android:id="@+id/noti_stock2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <TextView
+                android:id="@+id/stock_one_1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentStart="true"
+                android:layout_alignParentEnd="true"
+                android:layout_marginStart="10sp"
+                android:layout_marginTop="10sp"
+                android:layout_marginEnd="20sp"
+                android:fontFamily="@font/andika"
+                android:text="New Stock available"
+                android:textSize="20sp"
+                android:textStyle="bold" />
+            <TextView
+                android:id="@+id/stock_two_2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentStart="true"
+                android:layout_alignParentEnd="true"
+                android:layout_marginStart="10sp"
+                android:layout_marginTop="55sp"
+                android:layout_marginEnd="1sp"
+                android:fontFamily="@font/andika"
+                android:text="Beautiful Products are available now"
+                android:textSize="18sp"
+                />
+
+        </RelativeLayout>
+    </androidx.cardview.widget.CardView>
 </androidx.constraintlayout.widget.ConstraintLayout>

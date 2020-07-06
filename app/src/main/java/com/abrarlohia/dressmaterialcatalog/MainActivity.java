@@ -14,11 +14,19 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.net.Uri;
 import android.os.Bundle;
 import android.view.MenuItem;
+import android.view.View;
 import android.view.Window;
+import android.widget.Button;
+import android.widget.FrameLayout;
+import android.widget.ImageButton;
+import android.widget.Toast;
 
+import com.InternetConnection;
 import com.abrarlohia.fragmets.AboutUsFragment;
 import com.abrarlohia.fragmets.ContactUsFragment;
 import com.abrarlohia.fragmets.NotificationFragment;
@@ -32,20 +40,29 @@ import com.shashank.sony.fancytoastlib.FancyToast;
 public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
     private DrawerLayout drawer;
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        FancyToast.makeText(this, "Welcome",
-                FancyToast.LENGTH_LONG, FancyToast.SUCCESS, true).show();
+        //TODO: Check Internet
+        if (InternetConnection.checkConnection(getApplicationContext())) {
 
+        }
+        else {
+            FancyToast.makeText(this,"Internet not available",FancyToast.LENGTH_LONG,FancyToast.ERROR,true);
+        }
+
+        //Toolbar
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
+        //Drawer
         drawer = findViewById(R.id.drawer_layout);
         NavigationView navigationView = findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
 
+        //ActionBar
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(this, drawer, toolbar,
                 R.string.navigation_drawer_open, R.string.navigation_drawer_close);
         drawer.addDrawerListener(toggle);
@@ -108,14 +125,12 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 FancyToast.makeText(this, "Youtube channel on the way ",
                         FancyToast.LENGTH_LONG, FancyToast.INFO, true).show();
                 break;
-
         }
         drawer.closeDrawer(GravityCompat.START);
         return true;
     }
 
     //TODO:Rate on playstore activity
-
     public static void showRateDialog(final Context context) {
         AlertDialog.Builder builder = new AlertDialog.Builder(context)
                 .setTitle("Rate application")
@@ -145,7 +160,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 .setNegativeButton("CANCEL", null);
         builder.show();
     }
-
 
     //TODO: Application share
     private void ApplicationShareFragment() {
