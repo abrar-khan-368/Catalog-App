@@ -29,7 +29,9 @@ import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.EventListener;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.FirebaseFirestoreException;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.OnProgressListener;
 import com.google.firebase.storage.StorageReference;
@@ -114,7 +116,6 @@ public class AddCatalog extends AppCompatActivity {
                                                 }
                                             }
                                         });
-                                uploadCatalogInformation(cost);
                             } else {
                                 FancyToast.makeText(AddCatalog.this, "Please select atleast one product image!", FancyToast.LENGTH_SHORT, FancyToast.WARNING, true).show();
                             }
@@ -127,6 +128,7 @@ public class AddCatalog extends AppCompatActivity {
                     FancyToast.makeText(AddCatalog.this, "Enter catalog name", FancyToast.LENGTH_SHORT, FancyToast.WARNING, true).show();
                     catalogName.setError("Field is required");
                 }
+
             }
         });
 
