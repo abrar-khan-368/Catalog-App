@@ -37,20 +37,4 @@
             android:title="Rate" />
     </group>
 
-    <item android:title="Follow us">
-        <menu>
-            <item
-                android:id="@+id/instagram"
-                android:icon="@drawable/ic_instagram"
-                android:title="" />
-            <item
-                android:id="@+id/facebook"
-                android:icon="@drawable/ic_facebook"
-                android:title="" />
-            <item
-                android:id="@+id/youtube"
-                android:icon="@drawable/ic_youtube"
-                android:title="" />
-        </menu>
-    </item>
 </menu>

@@ -39,7 +39,7 @@ import com.shashank.sony.fancytoastlib.FancyToast;
 
 public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
     private DrawerLayout drawer;
-
+    private Button btn_admin;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -48,10 +48,21 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         //TODO: Check Internet
         if (InternetConnection.checkConnection(getApplicationContext())) {
 
+        } else {
+            FancyToast.makeText(this, "Internet not available", FancyToast.LENGTH_LONG, FancyToast.ERROR, true);
         }
-        else {
-            FancyToast.makeText(this,"Internet not available",FancyToast.LENGTH_LONG,FancyToast.ERROR,true);
-        }
+
+        //TODO: Admin Button
+        btn_admin = findViewById(R.id.btn_admin);
+        btn_admin.setOnLongClickListener(new View.OnLongClickListener() {
+            @Override
+            public boolean onLongClick(View v) {
+                Intent intent = new Intent(MainActivity.this, Admin_Login.class);
+                startActivity(intent);
+                return false;
+            }
+        });
+
 
         //Toolbar
         Toolbar toolbar = findViewById(R.id.toolbar);
@@ -112,18 +123,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             case R.id.nav_notification:
                 getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,
                         new NotificationFragment()).commit();
-                break;
-            case R.id.instagram:
-                FancyToast.makeText(this, "Sorry no instagram account right now ",
-                        FancyToast.LENGTH_LONG, FancyToast.INFO, true).show();
-                break;
-            case R.id.facebook:
-                FancyToast.makeText(this, "Very soon on facebook ",
-                        FancyToast.LENGTH_LONG, FancyToast.INFO, true).show();
-                break;
-            case R.id.youtube:
-                FancyToast.makeText(this, "Youtube channel on the way ",
-                        FancyToast.LENGTH_LONG, FancyToast.INFO, true).show();
                 break;
         }
         drawer.closeDrawer(GravityCompat.START);
