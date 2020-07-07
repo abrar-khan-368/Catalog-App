@@ -34,7 +34,7 @@ public class ShowCatalogDetails extends AppCompatActivity {
 
         recyclerView = findViewById(R.id.display_catalog);
         recyclerView.hasFixedSize();
-        recyclerView.setLayoutManager(new GridLayoutManager(ShowCatalogDetails.this, 2));
+        recyclerView.setLayoutManager(new LinearLayoutManager(ShowCatalogDetails.this));
         fetchCatalog();
     }
 

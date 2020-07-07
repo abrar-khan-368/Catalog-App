@@ -74,6 +74,12 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 //                   new SearchFragment()).commit();
 //       }
 
+        if(isNetworkAvailable()) {
+            //nothing
+        } else {
+            FancyToast.makeText(MainActivity.this, "No Internet available", FancyToast.LENGTH_SHORT, FancyToast.ERROR, true).show();
+        }
+
     }
 
     @Override
@@ -186,4 +192,12 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             super.onBackPressed();
         }
     }
+
+    private boolean isNetworkAvailable() {
+        ConnectivityManager connectivityManager
+                = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
+        NetworkInfo activeNetworkInfo = connectivityManager.getActiveNetworkInfo();
+        return activeNetworkInfo != null && activeNetworkInfo.isConnected();
+    }
+
 }
