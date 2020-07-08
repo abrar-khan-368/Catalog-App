@@ -8,6 +8,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
+import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Context;
@@ -27,6 +28,8 @@ import android.widget.ImageButton;
 import android.widget.Toast;
 
 import com.InternetConnection;
+import com.abrarlohia.dressmaterialcatalog.Adapters.HomeCategoryAdapter;
+import com.abrarlohia.dressmaterialcatalog.Models.Category;
 import com.abrarlohia.fragmets.AboutUsFragment;
 import com.abrarlohia.fragmets.ContactUsFragment;
 import com.abrarlohia.fragmets.NotificationFragment;
@@ -34,12 +37,25 @@ import com.abrarlohia.fragmets.RateFragment;
 import com.abrarlohia.fragmets.SearchFragment;
 import com.abrarlohia.fragmets.ShareFragment;
 import com.abrarlohia.fragmets.VideosFragment;
+import com.firebase.ui.firestore.FirestoreRecyclerOptions;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.gms.tasks.Task;
 import com.google.android.material.navigation.NavigationView;
+import com.google.firebase.firestore.CollectionReference;
+import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.Query;
+import com.google.firebase.firestore.QuerySnapshot;
 import com.shashank.sony.fancytoastlib.FancyToast;
 
 public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
     private DrawerLayout drawer;
     private Button btn_admin;
+    private RecyclerView recyclerView;
+
+    private FirebaseFirestore firestore = FirebaseFirestore.getInstance();
+    private CollectionReference collection = firestore.collection("Categories");
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -64,6 +80,11 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         });
 
 
+        //CategoryFetchCode
+        recyclerView = findViewById(R.id.categoryShow);
+        recyclerView.setHasFixedSize(true);
+        recyclerView.setLayoutManager(new GridLayoutManager(getApplicationContext(), 2));
+        fetchRecords();
         //Toolbar
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -91,6 +112,35 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             FancyToast.makeText(MainActivity.this, "No Internet available", FancyToast.LENGTH_SHORT, FancyToast.ERROR, true).show();
         }
 
+    }
+
+    private void fetchRecords() {
+        final Query query = collection.orderBy("name");
+        query.get()
+                .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                    @Override
+                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                        if(task.getResult().size() == 0)
+                            FancyToast.makeText(MainActivity.this, "No records found!", FancyToast.LENGTH_SHORT, FancyToast.WARNING, true).show();
+                    }
+                })
+                .addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
+                    @Override
+                    public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
+                        FirestoreRecyclerOptions<Category> options = new FirestoreRecyclerOptions.Builder<Category>()
+                                .setQuery(query, Category.class)
+                                .build();
+                        HomeCategoryAdapter adapter = new HomeCategoryAdapter(options);
+                        recyclerView.setAdapter(adapter);
+                        adapter.startListening();
+                    }
+                })
+                .addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception e) {
+
+                    }
+                });
     }
 
     @Override

@@ -6,6 +6,8 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
+import androidx.recyclerview.widget.GridLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -19,12 +21,14 @@ import com.abrarlohia.dressmaterialcatalog.Models.CatalogDetails;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.material.navigation.NavigationView;
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.shashank.sony.fancytoastlib.FancyToast;
 
 public class AdminHome extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
 
     private DrawerLayout drawerLayout;
+    private FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,6 +39,7 @@ public class AdminHome extends AppCompatActivity implements NavigationView.OnNav
         setSupportActionBar(toolbar);
 
         drawerLayout = findViewById(R.id.drawer_admin_home);
+
 
         NavigationView navigationView = findViewById(R.id.nav_view_admin);
         navigationView.setNavigationItemSelectedListener(this);
@@ -71,6 +76,9 @@ public class AdminHome extends AppCompatActivity implements NavigationView.OnNav
                 startActivity(new Intent(AdminHome.this, ShowCategories.class));
                 break;
             case R.id.nav_logout:
+                firebaseAuth.signOut();
+                startActivity(new Intent(AdminHome.this, MainActivity.class));
+                finish();
                 break;
         }
         drawerLayout.closeDrawer(GravityCompat.START);
