@@ -9,7 +9,6 @@ import androidx.appcompat.widget.Toolbar;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.recyclerview.widget.RecyclerView;
-
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -25,7 +24,6 @@ import android.widget.Button;
 import android.widget.FrameLayout;
 import android.widget.ImageButton;
 import android.widget.Toast;
-
 import com.InternetConnection;
 import com.abrarlohia.fragmets.AboutUsFragment;
 import com.abrarlohia.fragmets.ContactUsFragment;
@@ -47,11 +45,9 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         setContentView(R.layout.activity_main);
         //TODO: Check Internet
         if (InternetConnection.checkConnection(getApplicationContext())) {
-
         } else {
             FancyToast.makeText(this, "Internet not available", FancyToast.LENGTH_LONG, FancyToast.ERROR, true);
         }
-
         //TODO: Admin Button
         btn_admin = findViewById(R.id.btn_admin);
         btn_admin.setOnLongClickListener(new View.OnLongClickListener() {
@@ -62,7 +58,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 return false;
             }
         });
-
 
         //Toolbar
         Toolbar toolbar = findViewById(R.id.toolbar);
@@ -178,7 +173,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             startActivity(Intent.createChooser(shareIntent, "choose one"));
 
         } catch (Exception e) {
-            //e.toString();
+            e.toString();
         }
     }
 
@@ -191,7 +186,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             super.onBackPressed();
         }
     }
-
     private boolean isNetworkAvailable() {
         ConnectivityManager connectivityManager
                 = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);

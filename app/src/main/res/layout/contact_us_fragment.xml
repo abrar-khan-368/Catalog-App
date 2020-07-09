@@ -34,7 +34,7 @@
         android:background="@drawable/contact_us_back"
         android:ems="15"
         android:hint="Phone Number"
-        android:inputType="phone"
+        android:inputType="number|text"
         android:textAlignment="center"
         android:textColor="@color/white"
         android:textColorHint="@color/white"
@@ -42,24 +42,6 @@
         app:layout_constraintHorizontal_bias="0.494"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/EdtTxt_name" />
-
-    <EditText
-        android:id="@+id/EdtTxt_email"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="24dp"
-        android:layout_marginEnd="8dp"
-        android:background="@drawable/contact_us_back"
-        android:ems="15"
-        android:hint="E-mail"
-        android:inputType="textEmailAddress"
-        android:textAlignment="center"
-        android:textColor="@color/white"
-        android:textColorHint="@color/white"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/EdtTxt_phno" />
 
     <EditText
         android:id="@+id/EdtTxt_msg"
@@ -76,11 +58,12 @@
         android:textColor="@color/white"
         android:textColorHint="@color/white"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.494"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/EdtTxt_email" />
+        app:layout_constraintTop_toBottomOf="@+id/EdtTxt_phno" />
 
     <Button
-        android:id="@+id/send_mail"
+        android:id="@+id/btn_send_mail"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
