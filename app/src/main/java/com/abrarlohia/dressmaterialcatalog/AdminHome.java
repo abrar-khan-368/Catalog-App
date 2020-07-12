@@ -71,6 +71,7 @@ public class AdminHome extends AppCompatActivity implements NavigationView.OnNav
                 startActivity(new Intent(AdminHome.this, ShowCatalogDetails.class));
                 break;
             case R.id.nav_add_category:
+                startActivity(new Intent(AdminHome.this, AddCategories.class));
                 break;
             case R.id.nav_show_category:
                 startActivity(new Intent(AdminHome.this, ShowCategories.class));

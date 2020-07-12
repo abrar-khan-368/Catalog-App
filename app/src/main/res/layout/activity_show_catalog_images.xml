@@ -5,10 +5,10 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/add_bg"
-    tools:context=".ShowCatalogDetails">
+    tools:context=".ShowCatalogImages">
 
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/display_catalog"
+        android:id="@+id/image_recycler"
         android:layout_width="409dp"
         android:layout_height="657dp"
         app:layout_constraintBottom_toBottomOf="parent"
