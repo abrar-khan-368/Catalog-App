@@ -4,7 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/cnt_back">
+    android:background="#fbf9fa"
+    >
 
     <EditText
         android:id="@+id/EdtTxt_name"
@@ -18,8 +19,8 @@
         android:hint="Name"
         android:inputType="textPersonName"
         android:textAlignment="center"
-        android:textColor="@color/white"
-        android:textColorHint="@color/white"
+        android:textColor="@color/browser_actions_title_color"
+        android:textColorHint="@color/browser_actions_title_color"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -36,8 +37,8 @@
         android:hint="Phone Number"
         android:inputType="number|text"
         android:textAlignment="center"
-        android:textColor="@color/white"
-        android:textColorHint="@color/white"
+        android:textColor="@color/browser_actions_title_color"
+        android:textColorHint="@color/browser_actions_title_color"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.494"
         app:layout_constraintStart_toStartOf="parent"
@@ -45,8 +46,8 @@
 
     <EditText
         android:id="@+id/EdtTxt_msg"
-        android:layout_width="300sp"
-        android:layout_height="120sp"
+        android:layout_width="315sp"
+        android:layout_height="170sp"
         android:layout_marginStart="8dp"
         android:layout_marginTop="24dp"
         android:layout_marginEnd="8dp"
@@ -55,8 +56,8 @@
         android:hint="Message"
         android:inputType="textPersonName"
         android:textAlignment="center"
-        android:textColor="@color/white"
-        android:textColorHint="@color/white"
+        android:textColor="@color/browser_actions_title_color"
+        android:textColorHint="@color/browser_actions_title_color"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.494"
         app:layout_constraintStart_toStartOf="parent"
@@ -64,17 +65,19 @@
 
     <Button
         android:id="@+id/btn_send_mail"
-        android:layout_width="wrap_content"
+        android:layout_width="200sp"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
-        android:layout_marginTop="35dp"
+        android:layout_marginTop="24dp"
         android:layout_marginEnd="8dp"
-        android:background="@drawable/submit"
+        android:background="#d63447"
+
         android:fontFamily="sans-serif"
         android:text="Submit"
         android:textColor="@color/white"
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.496"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/EdtTxt_msg" />
 </androidx.constraintlayout.widget.ConstraintLayout>

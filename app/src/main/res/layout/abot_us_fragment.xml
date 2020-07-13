@@ -36,7 +36,7 @@
                 android:layout_marginTop="15sp"
                 android:layout_marginEnd="115dp"
                 android:fontFamily="@font/andika"
-                android:text="Woman Trends"
+                android:text="Woman Trend"
                 android:textSize="20sp"
                 android:textStyle="bold" />
         </RelativeLayout>

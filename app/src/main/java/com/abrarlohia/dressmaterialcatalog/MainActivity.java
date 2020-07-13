@@ -186,7 +186,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 //                getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,
 //                        new VideosFragment()).commit();
                 startActivity(new Intent(this, catalog_video.class));
-
                 getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,
                         new VideosFragment()).commit();
                 recyclerView.setVisibility(View.INVISIBLE);
