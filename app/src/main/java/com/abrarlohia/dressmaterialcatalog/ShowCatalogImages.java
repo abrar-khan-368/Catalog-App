@@ -7,6 +7,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import android.os.Bundle;
 import android.util.Log;
+import android.widget.ArrayAdapter;
 import android.widget.Toast;
 
 import com.abrarlohia.dressmaterialcatalog.Adapters.DownloadImageAdapter;
@@ -31,8 +32,6 @@ import java.util.List;
 public class ShowCatalogImages extends AppCompatActivity {
 
     private String catalogName = null;
-    private List<DownloadUrl> urlList = new ArrayList<>();
-    private ImageToShowAdapter imageToShowAdapter;
     private RecyclerView recyclerView;
     private FirebaseFirestore firestore = FirebaseFirestore.getInstance();
 
@@ -46,40 +45,37 @@ public class ShowCatalogImages extends AppCompatActivity {
         else
             catalogName = getIntent().getStringExtra("catalog-name");
 
-        CollectionReference reference = firestore.collection("CatalogDetails");
-        final Query query = reference.whereEqualTo("catalogName", catalogName);
+        recyclerView = findViewById(R.id.image_recycler);
+        recyclerView.setHasFixedSize(true);
+        recyclerView.setLayoutManager(new LinearLayoutManager(this));
 
+        fetchImages();
+
+    }
+
+    private void fetchImages() {
+        final Query query = firestore.collection("CatalogDetails").whereEqualTo("catalogName", catalogName);
         query.get()
                 .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
                     @Override
                     public void onComplete(@NonNull Task<QuerySnapshot> task) {
-                        urlList = (ArrayList<DownloadUrl>)task.getResult().getDocuments().get(0).get("imageLink");
+
+                    }
+                })
+                .addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
+                    @Override
+                    public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
+                        FirestoreRecyclerOptions<CatalogDetails> options = new FirestoreRecyclerOptions.Builder<CatalogDetails>()
+                                .setQuery(query, CatalogDetails.class)
+                                .build();
+
+                        ImageToShowAdapter adapter = new ImageToShowAdapter(options);
+                        adapter.setContext(ShowCatalogImages.this);
+                        recyclerView.setAdapter(adapter);
+                        adapter.startListening();
+
                     }
                 });
-//                .addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
-//                    @Override
-//                    public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
-//                        Toast.makeText(ShowCatalogImages.this, queryDocumentSnapshots.getDocuments().size() + "", Toast.LENGTH_SHORT).show();
-//                        urlList = (ArrayList<DownloadUrl>) queryDocumentSnapshots.getDocuments().get(0)
-//                                .get("imageLink");
-//
-//
-//                    }
-//                });
-
-        recyclerView = findViewById(R.id.image_recycler);
-
-        recyclerView.setHasFixedSize(true);
-        recyclerView.setLayoutManager(new LinearLayoutManager(ShowCatalogImages.this));
-
-
-        imageToShowAdapter = new ImageToShowAdapter(urlList);
-        //imageToShowAdapter.setUrls(urlList);
-        recyclerView.setAdapter(imageToShowAdapter);
-        for (int i = 0; i < urlList.size(); i++)
-            imageToShowAdapter.notifyDataSetChanged();
-
-
     }
 
 }
