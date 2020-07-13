@@ -10,6 +10,7 @@ import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -25,6 +26,7 @@ import android.widget.Button;
 import android.widget.FrameLayout;
 import android.widget.ImageButton;
 import android.widget.Toast;
+
 import com.InternetConnection;
 import com.abrarlohia.dressmaterialcatalog.Adapters.HomeCategoryAdapter;
 import com.abrarlohia.dressmaterialcatalog.Models.Category;
@@ -59,6 +61,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
         //TODO: Check Internet
         if (InternetConnection.checkConnection(getApplicationContext())) {
         } else {
@@ -102,7 +105,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 //                   new SearchFragment()).commit();
 //       }
 
-        if(isNetworkAvailable()) {
+        if (isNetworkAvailable()) {
             //nothing
         } else {
             FancyToast.makeText(MainActivity.this, "No Internet available", FancyToast.LENGTH_SHORT, FancyToast.ERROR, true).show();
@@ -116,7 +119,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
                     @Override
                     public void onComplete(@NonNull Task<QuerySnapshot> task) {
-                        if(task.getResult().size() == 0)
+                        if (task.getResult().size() == 0)
                             FancyToast.makeText(MainActivity.this, "No records found!", FancyToast.LENGTH_SHORT, FancyToast.WARNING, true).show();
                     }
                 })
@@ -169,8 +172,9 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 ApplicationShareFragment();
                 break;
             case R.id.nav_videos:
-                getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,
-                        new VideosFragment()).commit();
+//                getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,
+//                        new VideosFragment()).commit();
+                startActivity(new Intent(this, catalog_video.class));
                 break;
             case R.id.nav_notification:
                 getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,
@@ -237,6 +241,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             super.onBackPressed();
         }
     }
+
     private boolean isNetworkAvailable() {
         ConnectivityManager connectivityManager
                 = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
