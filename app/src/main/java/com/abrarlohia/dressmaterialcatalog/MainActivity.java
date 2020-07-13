@@ -19,6 +19,7 @@ import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.net.Uri;
 import android.os.Bundle;
+import android.view.Gravity;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.Window;
@@ -99,6 +100,10 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         drawer.addDrawerListener(toggle);
         toggle.syncState();
 
+        if(drawer.isDrawerOpen(GravityCompat.START))
+            recyclerView.setVisibility(View.INVISIBLE);
+        else
+            recyclerView.setVisibility(View.VISIBLE);
 
 //       if(savedInstanceState==null){
 //           getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,
@@ -152,33 +157,45 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             case R.id.nav_about_us:
                 getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,
                         new AboutUsFragment()).commit();
+                recyclerView.setVisibility(View.INVISIBLE);
                 break;
             case R.id.nav_contact:
                 getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,
                         new ContactUsFragment()).commit();
+                recyclerView.setVisibility(View.INVISIBLE);
                 break;
             case R.id.nav_rate:
 //                getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,
 //                        new RateFragment()).commit();
                 showRateDialog(this);
+                recyclerView.setVisibility(View.INVISIBLE);
                 break;
             case R.id.nav_search:
                 getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,
                         new SearchFragment()).commit();
+                recyclerView.setVisibility(View.INVISIBLE);
                 break;
             case R.id.nav_share:
 //                getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,
 //                        new ShareFragment()).commit();
                 ApplicationShareFragment();
+                recyclerView.setVisibility(View.INVISIBLE);
                 break;
             case R.id.nav_videos:
+
 //                getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,
 //                        new VideosFragment()).commit();
                 startActivity(new Intent(this, catalog_video.class));
+
+                getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,
+                        new VideosFragment()).commit();
+                recyclerView.setVisibility(View.INVISIBLE);
+
                 break;
             case R.id.nav_notification:
                 getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,
                         new NotificationFragment()).commit();
+                recyclerView.setVisibility(View.INVISIBLE);
                 break;
         }
         drawer.closeDrawer(GravityCompat.START);

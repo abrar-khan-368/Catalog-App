@@ -6,7 +6,10 @@ import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.app.ProgressDialog;
 import android.os.Bundle;
+import android.widget.ArrayAdapter;
+import android.widget.Spinner;
 
 import com.abrarlohia.dressmaterialcatalog.Adapters.ShowCatalogDetailsAdapter;
 import com.abrarlohia.dressmaterialcatalog.Models.CatalogDetails;
@@ -16,10 +19,13 @@ import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.firestore.CollectionReference;
+import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.Query;
 import com.google.firebase.firestore.QuerySnapshot;
 import com.shashank.sony.fancytoastlib.FancyToast;
+
+import java.util.ArrayList;
 
 public class ShowCatalogDetails extends AppCompatActivity {
 
@@ -27,10 +33,17 @@ public class ShowCatalogDetails extends AppCompatActivity {
     private FirebaseFirestore firestore = FirebaseFirestore.getInstance();
     private CollectionReference collection = firestore.collection("CatalogDetails");
 
+    private ProgressDialog progressDialog;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_show_catalog_details);
+
+        progressDialog = new ProgressDialog(this);
+        progressDialog.setTitle("Processing");
+        progressDialog.setMessage("Loading...");
+        progressDialog.show();
 
         recyclerView = findViewById(R.id.display_catalog);
         recyclerView.hasFixedSize();
@@ -45,6 +58,7 @@ public class ShowCatalogDetails extends AppCompatActivity {
                 .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
                     @Override
                     public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                        progressDialog.hide();
                         if(task.getResult().size() == 0)
                             FancyToast.makeText(ShowCatalogDetails.this, "No catalog found!", FancyToast.LENGTH_SHORT, FancyToast.WARNING, false).show();
                     }
@@ -52,10 +66,12 @@ public class ShowCatalogDetails extends AppCompatActivity {
                 .addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
                     @Override
                     public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
+                        progressDialog.dismiss();
                         FirestoreRecyclerOptions<CatalogDetails> options = new FirestoreRecyclerOptions.Builder<CatalogDetails>()
                                 .setQuery(query, CatalogDetails.class)
                                 .build();
                         ShowCatalogDetailsAdapter catalogDetailsAdapter = new ShowCatalogDetailsAdapter(options);
+                        catalogDetailsAdapter.setContext(ShowCatalogDetails.this);
                         recyclerView.setAdapter(catalogDetailsAdapter);
                         catalogDetailsAdapter.startListening();
                     }
@@ -63,6 +79,7 @@ public class ShowCatalogDetails extends AppCompatActivity {
                 .addOnFailureListener(new OnFailureListener() {
                     @Override
                     public void onFailure(@NonNull Exception e) {
+                        progressDialog.hide();
                         FancyToast.makeText(ShowCatalogDetails.this,
                                 e.getMessage(), FancyToast.LENGTH_SHORT,
                                 FancyToast.WARNING, false).show();
@@ -70,5 +87,6 @@ public class ShowCatalogDetails extends AppCompatActivity {
                 });
 
     }
+
 
 }

@@ -15,6 +15,8 @@ import android.os.Handler;
 import android.provider.OpenableColumns;
 import android.util.Log;
 import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
@@ -28,10 +30,13 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
+import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.EventListener;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.FirebaseFirestoreException;
+import com.google.firebase.firestore.Query;
+import com.google.firebase.firestore.QuerySnapshot;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.OnProgressListener;
 import com.google.firebase.storage.StorageReference;
@@ -56,7 +61,8 @@ public class AddCatalog extends AppCompatActivity {
     private ImageDisplayAdapter displayAdapter;
 
     private ProgressDialog progressDialog;
-    Handler handler;
+
+    private String item;
 
     static List<DownloadUrl> uploadedImageLink = new ArrayList<>();
 
@@ -77,11 +83,25 @@ public class AddCatalog extends AppCompatActivity {
         imageUriList = new ArrayList<>();
         displayAdapter = new ImageDisplayAdapter(fileNameList);
 
+        fetchCategory();
+
+        catalogCategory.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                item = parent.getSelectedItem().toString();
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) { }
+        });
+
         progressDialog = new ProgressDialog(this);
 
         showUploadedImages.setHasFixedSize(true);
         showUploadedImages.setLayoutManager(new LinearLayoutManager(AddCatalog.this));
         showUploadedImages.setAdapter(displayAdapter);
+
+
 
         imageButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -176,7 +196,7 @@ public class AddCatalog extends AppCompatActivity {
                             firestore.collection("CatalogDetails")
                                     .document(catalogName.getText().toString())
                                     .set(new CatalogDetails(catalogName.getText().toString(),
-                                            cost+"", uploadedImageLink, "Saree"))
+                                            cost+"", uploadedImageLink, item))
                                     .addOnCompleteListener(new OnCompleteListener<Void>() {
                                         @Override
                                         public void onComplete(@NonNull Task<Void> task) {
@@ -228,9 +248,36 @@ public class AddCatalog extends AppCompatActivity {
 
     }
 
-    private void imageUploader() {
+    private void fetchCategory() {
+        final ArrayList<String> categories = new ArrayList<String>();
+        CollectionReference reference = firestore.collection("Categories");
+
+        Query query = reference.orderBy("name");
+        query.get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+            @Override
+            public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                if(task.isSuccessful()) {
+                    for (DocumentSnapshot snapshot : task.getResult().getDocuments()) {
+                        categories.add(snapshot.get("name").toString());
+                    }
+                }
+
+                ArrayAdapter<String> adapter = new ArrayAdapter<String>(AddCatalog.this,
+                        R.layout.spinner_item, categories);
+                adapter.setDropDownViewResource(R.layout.support_simple_spinner_dropdown_item);
+                catalogCategory.setAdapter((adapter));
+
+            }
+        })
+                .addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception e) {
+                        FancyToast.makeText(AddCatalog.this, e.getMessage(), FancyToast.LENGTH_SHORT, FancyToast.ERROR, true).show();
+                    }
+                });
 
     }
+
 
     private String getFileName(Uri uri) {
         String result = null;
