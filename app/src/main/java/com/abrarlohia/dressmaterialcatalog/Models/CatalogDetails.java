@@ -7,12 +7,12 @@ public class CatalogDetails {
 
     private String catalogName;
     private String costing;
-    private List<DownloadUrl> imageLink;
+    private List<String> imageLink;
     private String catalogCategory;
 
     public CatalogDetails() {}
 
-    public CatalogDetails(String catalogName, String costing, List<DownloadUrl> imageLink, String catalogCategory) {
+    public CatalogDetails(String catalogName, String costing, List<String> imageLink, String catalogCategory) {
         this.catalogName = catalogName;
         this.costing = costing;
         this.imageLink = imageLink;
@@ -27,7 +27,7 @@ public class CatalogDetails {
         return costing;
     }
 
-    public List<DownloadUrl> getImageLink() {
+    public List<String> getImageLink() {
         return imageLink;
     }
 

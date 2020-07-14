@@ -33,7 +33,7 @@ public class ShowCatalogDetailsAdapter extends FirestoreRecyclerAdapter<CatalogD
         holder.costing.setText(model.getCosting());
         holder.categoryName.setText(model.getCatalogCategory());
         Picasso.with(context)
-                .load(model.getImageLink().get(0).getUrl())
+                .load(model.getImageLink().get(0))
                 .fit()
                 .centerCrop()
                 .placeholder(R.drawable.placeholder)

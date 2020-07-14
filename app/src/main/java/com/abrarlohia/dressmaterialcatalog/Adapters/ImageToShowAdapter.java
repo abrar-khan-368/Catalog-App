@@ -22,7 +22,7 @@ import java.util.List;
 
 public class ImageToShowAdapter extends FirestoreRecyclerAdapter<CatalogDetails, ImageToShowAdapter.ImageToShowViewHolder> {
 
-    private List<DownloadUrl> urls;
+    private List<String> urls;
     private Context context;
 
     public ImageToShowAdapter(@NonNull FirestoreRecyclerOptions<CatalogDetails> options) {
@@ -36,13 +36,12 @@ public class ImageToShowAdapter extends FirestoreRecyclerAdapter<CatalogDetails,
     @Override
     protected void onBindViewHolder(@NonNull ImageToShowViewHolder holder, int position, @NonNull CatalogDetails model) {
         urls = model.getImageLink();
-        for (int i = 0; i < urls.size(); i++) {
-            Picasso.with(context)
-                    .load(urls.get(i).getUrl())
-                    .fit()
-                    .placeholder(R.drawable.placeholder)
-                    .into(holder.catalogImg);
-        }
+        Picasso.with(context)
+                .load(urls.get(position))
+                .fit()
+                .centerCrop()
+                .placeholder(R.drawable.placeholder)
+                .into(holder.catalogImg);
     }
 
     @NonNull
