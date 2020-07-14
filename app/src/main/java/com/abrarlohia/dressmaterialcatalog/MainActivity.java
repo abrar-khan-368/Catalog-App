@@ -1,7 +1,6 @@
 package com.abrarlohia.dressmaterialcatalog;
 
 import androidx.annotation.NonNull;
-import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
@@ -19,14 +18,9 @@ import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.net.Uri;
 import android.os.Bundle;
-import android.view.Gravity;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.Window;
 import android.widget.Button;
-import android.widget.FrameLayout;
-import android.widget.ImageButton;
-import android.widget.Toast;
 
 import com.InternetConnection;
 import com.abrarlohia.dressmaterialcatalog.Adapters.HomeCategoryAdapter;
@@ -34,10 +28,7 @@ import com.abrarlohia.dressmaterialcatalog.Models.Category;
 import com.abrarlohia.fragmets.AboutUsFragment;
 import com.abrarlohia.fragmets.ContactUsFragment;
 import com.abrarlohia.fragmets.NotificationFragment;
-import com.abrarlohia.fragmets.RateFragment;
 import com.abrarlohia.fragmets.SearchFragment;
-import com.abrarlohia.fragmets.ShareFragment;
-import com.abrarlohia.fragmets.VideosFragment;
 import com.firebase.ui.firestore.FirestoreRecyclerOptions;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
@@ -186,8 +177,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 //                getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,
 //                        new VideosFragment()).commit();
                 startActivity(new Intent(this, catalog_video.class));
-                getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,
-                        new VideosFragment()).commit();
                 recyclerView.setVisibility(View.INVISIBLE);
 
                 break;

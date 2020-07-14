@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/white_backgroud">
+    android:background="#d7ccc8">
     <androidx.cardview.widget.CardView
         android:id="@+id/name"
         android:layout_width="match_parent"
@@ -18,7 +18,7 @@
         android:layout_marginEnd="10sp"
         app:cardElevation="3sp"
         app:cardCornerRadius="0sp"
-        app:cardBackgroundColor="@android:color/transparent"
+        app:cardBackgroundColor="#a1887f"
         >
 
         <RelativeLayout
@@ -54,7 +54,7 @@
         android:layout_marginEnd="10sp"
         app:cardElevation="3sp"
         app:cardCornerRadius="1sp"
-        app:cardBackgroundColor="@android:color/transparent">
+        app:cardBackgroundColor="#a1887f">
 <RelativeLayout
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
@@ -116,7 +116,7 @@
         android:layout_height="2sp"
         android:layout_marginStart="10sp"
         android:layout_marginEnd="20sp"
-        android:background="#448aff"
+        android:background="#827717"
         />
     <TextView
         android:id="@+id/E-mail"
@@ -152,7 +152,7 @@
         android:layout_height="2dp"
         android:layout_marginStart="10sp"
         android:layout_marginEnd="20sp"
-        android:background="#448aff"
+        android:background="#827717"
         />
     <TextView
         android:id="@+id/website"

@@ -1,20 +1,29 @@
 package com.abrarlohia.fragmets;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.Window;
+import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.FrameLayout;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
+import com.abrarlohia.dressmaterialcatalog.MainActivity;
 import com.abrarlohia.dressmaterialcatalog.R;
+import com.google.android.material.snackbar.Snackbar;
+
 
 public class ContactUsFragment extends Fragment {
 
@@ -35,8 +44,6 @@ public class ContactUsFragment extends Fragment {
         EdtTxt_name = view.findViewById(R.id.EdtTxt_name);
         EdtTxt_phno = view.findViewById(R.id.EdtTxt_phno);
         EdtTxt_msg = view.findViewById(R.id.EdtTxt_msg);
-
-
         btn_send_mail.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
