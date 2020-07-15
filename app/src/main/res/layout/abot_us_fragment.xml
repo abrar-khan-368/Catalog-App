@@ -4,7 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#d7ccc8">
+    android:background="#ffc7c7"
+    >
     <androidx.cardview.widget.CardView
         android:id="@+id/name"
         android:layout_width="match_parent"
@@ -18,7 +19,7 @@
         android:layout_marginEnd="10sp"
         app:cardElevation="3sp"
         app:cardCornerRadius="0sp"
-        app:cardBackgroundColor="#a1887f"
+        app:cardBackgroundColor="#fc9d9d"
         >
 
         <RelativeLayout
@@ -54,7 +55,7 @@
         android:layout_marginEnd="10sp"
         app:cardElevation="3sp"
         app:cardCornerRadius="1sp"
-        app:cardBackgroundColor="#a1887f">
+        app:cardBackgroundColor="#fc9d9d">
 <RelativeLayout
     android:layout_width="match_parent"
     android:layout_height="wrap_content"

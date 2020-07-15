@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#bcaaa4"
+    android:background="@drawable/cnt"
     >
 
     <EditText
@@ -70,7 +70,7 @@
         android:layout_marginStart="8dp"
         android:layout_marginTop="24dp"
         android:layout_marginEnd="8dp"
-        android:background="#3e2723"
+        android:background="#2470a0"
 
         android:fontFamily="sans-serif"
         android:text="Submit"
