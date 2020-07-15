@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
+
     <ImageButton style="@style/AppTheme"
         android:layout_width="60dp"
         android:layout_height="60dp"
@@ -15,6 +16,7 @@
         android:layout_alignParentBottom="true"
         android:layout_alignParentRight="true"
         android:layout_marginBottom="24dp"
+        android:elevation="1sp"
         android:layout_marginRight="24dp"/>
 
     <androidx.drawerlayout.widget.DrawerLayout
@@ -51,6 +53,7 @@
                     android:layout_height="match_parent">
 
 
+
                 </androidx.recyclerview.widget.RecyclerView>
 
             </FrameLayout>
@@ -76,6 +79,9 @@
                 android:alpha="0"
                 android:text="Admin LogIn"
                 />
+
+
+
         </com.google.android.material.navigation.NavigationView>
     </androidx.drawerlayout.widget.DrawerLayout>
 </RelativeLayout>
