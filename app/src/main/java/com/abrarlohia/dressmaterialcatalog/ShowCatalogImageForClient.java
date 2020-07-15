@@ -6,49 +6,63 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.os.Bundle;
+import android.util.Log;
 
-import com.abrarlohia.dressmaterialcatalog.Adapters.ShowCatalogByCategoryAdapter;
-import com.abrarlohia.dressmaterialcatalog.Adapters.ShowCatalogDetailsAdapter;
+import com.abrarlohia.dressmaterialcatalog.Adapters.DownloadImageAdapter;
+import com.abrarlohia.dressmaterialcatalog.Adapters.ImageToShowAdapter;
 import com.abrarlohia.dressmaterialcatalog.Models.CatalogDetails;
 import com.firebase.ui.firestore.FirestoreRecyclerOptions;
 import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.Query;
 import com.google.firebase.firestore.QuerySnapshot;
-import com.shashank.sony.fancytoastlib.FancyToast;
 
-public class ShowCatalogByCategory extends AppCompatActivity {
+import java.util.ArrayList;
 
-    private String categoryName;
+public class ShowCatalogImageForClient extends AppCompatActivity {
+
+    private String catalogName;
     private RecyclerView recyclerView;
     private FirebaseFirestore firestore = FirebaseFirestore.getInstance();
+
+    private ArrayList<String> urls = new ArrayList<>();
+    private ArrayList<String> downloadUrls = new ArrayList<>();
+
+    private DownloadImageAdapter imageAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_show_catalog_by_category);
+        setContentView(R.layout.activity_show_catalog_image_for_client);
 
-        categoryName = getIntent().getStringExtra("category");
-        recyclerView = findViewById(R.id.catalog_by_category);
+        catalogName = getIntent().getStringExtra("catalog-name");
+
+        recyclerView = findViewById(R.id.image_recycler);
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
 
-        fetchDataByCategory();
+        imageAdapter = new DownloadImageAdapter(downloadUrls, this);
+        recyclerView.setAdapter(imageAdapter);
+
+        fetchImages();
 
     }
 
-    private void fetchDataByCategory() {
-
-        final Query query = firestore.collection("CatalogDetails").whereEqualTo("catalogCategory", categoryName);
+    private void fetchImages() {
+        final Query query = firestore.collection("CatalogDetails").whereEqualTo("catalogName", catalogName);
         query.get()
                 .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
                     @Override
                     public void onComplete(@NonNull Task<QuerySnapshot> task) {
-                        if(task.getResult().size() == 0)
-                            FancyToast.makeText(ShowCatalogByCategory.this, "No Records found", FancyToast.LENGTH_SHORT, FancyToast.WARNING, true).show();
+                        urls = (ArrayList<String>) task.getResult().getDocuments().get(0).get("imageLink");
+                        Log.d("SIZE", urls.size() + "");
+                        for (int i = 0; i < urls.size(); i++) {
+                            downloadUrls.add(urls.get(i));
+                            imageAdapter.notifyDataSetChanged();
+
+                        }
                     }
                 })
                 .addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
@@ -58,19 +72,12 @@ public class ShowCatalogByCategory extends AppCompatActivity {
                                 .setQuery(query, CatalogDetails.class)
                                 .build();
 
-                        ShowCatalogByCategoryAdapter adapter = new ShowCatalogByCategoryAdapter(options);
-                        adapter.setContext(ShowCatalogByCategory.this);
-                        recyclerView.setAdapter(adapter);
+                        final ImageToShowAdapter adapter = new ImageToShowAdapter(options);
+                        adapter.setContext(ShowCatalogImageForClient.this);
+                        //recyclerView.setAdapter(adapter);
                         adapter.startListening();
 
                     }
-                })
-                .addOnFailureListener(new OnFailureListener() {
-                    @Override
-                    public void onFailure(@NonNull Exception e) {
-                        FancyToast.makeText(ShowCatalogByCategory.this, e.getMessage(), FancyToast.LENGTH_SHORT, FancyToast.ERROR, true).show();
-                    }
                 });
-
     }
 }

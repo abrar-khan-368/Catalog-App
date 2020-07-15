@@ -15,18 +15,19 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         tools:ignore="LockedOrientationActivity">
-        <activity android:name=".ShowCatalogByCategory"></activity>
-        <activity android:name=".catalog_video"></activity>
-        <activity android:name=".ShowCatalogImages"></activity>
-        <activity android:name=".Admin_Login"></activity>
-        <activity android:name=".ShowCategories"></activity>
+        <activity android:name=".ShowCatalogImageForClient"></activity>
+        <activity android:name=".ShowCatalogByCategory" />
+        <activity android:name=".catalog_video" />
+        <activity android:name=".ShowCatalogImages" />
+        <activity android:name=".Admin_Login" />
+        <activity android:name=".ShowCategories" />
         <activity android:name=".AddCategories" />
         <activity android:name=".AddCatalog" />
         <activity android:name=".ShowCatalogDetails" />
         <activity
             android:name=".AdminHome"
             android:screenOrientation="portrait"
-            android:theme="@style/AppTheme.NoActionBar"></activity>
+            android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".SplashScreen"
             android:theme="@style/SplashScreen">
