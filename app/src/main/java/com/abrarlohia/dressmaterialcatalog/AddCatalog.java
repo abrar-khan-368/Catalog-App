@@ -64,7 +64,7 @@ public class AddCatalog extends AppCompatActivity {
 
     private String item;
 
-    static List<DownloadUrl> uploadedImageLink = new ArrayList<>();
+    static List<String> uploadedImageLink = new ArrayList<>();
 
     private StorageReference storageReference = FirebaseStorage.getInstance().getReference();
     @Override
@@ -160,7 +160,10 @@ public class AddCatalog extends AppCompatActivity {
         if (requestCode == 1 && resultCode == RESULT_OK) {
             if (data.getClipData() != null) {
                 int totalSelectedItem = data.getClipData().getItemCount();
-
+                if(totalSelectedItem > 5) {
+                    FancyToast.makeText(AddCatalog.this, "You can select only 5 images", FancyToast.LENGTH_SHORT, FancyToast.ERROR, true).show();
+                    return;
+                }
                 for (int i = 0; i < totalSelectedItem; i++) {
                     Uri imageUri = data.getClipData().getItemAt(i).getUri();
                     imageUriList.add(imageUri);
@@ -191,7 +194,7 @@ public class AddCatalog extends AppCompatActivity {
                             final Uri downloadUri = urlTask.getResult();
                             link[0] = downloadUri.toString();
                             Log.d("DOWNLOAD", downloadUri.toString());
-                            uploadedImageLink.add(new DownloadUrl(downloadUri.toString()));
+                            uploadedImageLink.add(downloadUri.toString());
 
                             firestore.collection("CatalogDetails")
                                     .document(catalogName.getText().toString())

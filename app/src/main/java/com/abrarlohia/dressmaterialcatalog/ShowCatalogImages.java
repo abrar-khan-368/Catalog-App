@@ -6,7 +6,10 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.os.Bundle;
+import android.os.Handler;
+import android.text.LoginFilter;
 import android.util.Log;
+import android.widget.Adapter;
 import android.widget.ArrayAdapter;
 import android.widget.Toast;
 
@@ -22,11 +25,13 @@ import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.firestore.CollectionReference;
+import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.Query;
 import com.google.firebase.firestore.QuerySnapshot;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 public class ShowCatalogImages extends AppCompatActivity {
@@ -34,6 +39,11 @@ public class ShowCatalogImages extends AppCompatActivity {
     private String catalogName = null;
     private RecyclerView recyclerView;
     private FirebaseFirestore firestore = FirebaseFirestore.getInstance();
+
+    private ArrayList<String> urls = new ArrayList<>();
+    private ArrayList<String> downloadUrls = new ArrayList<>();
+
+    private  DownloadImageAdapter imageAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -49,6 +59,8 @@ public class ShowCatalogImages extends AppCompatActivity {
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
 
+        imageAdapter = new DownloadImageAdapter(downloadUrls, this);
+        recyclerView.setAdapter(imageAdapter);
         fetchImages();
 
     }
@@ -59,7 +71,13 @@ public class ShowCatalogImages extends AppCompatActivity {
                 .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
                     @Override
                     public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                        urls = (ArrayList<String>) task.getResult().getDocuments().get(0).get("imageLink");
+                        Log.d("SIZE", urls.size()+"");
+                        for (int i = 0; i < urls.size(); i++) {
+                            downloadUrls.add(urls.get(i));
+                            imageAdapter.notifyDataSetChanged();
 
+                        }
                     }
                 })
                 .addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
@@ -69,9 +87,9 @@ public class ShowCatalogImages extends AppCompatActivity {
                                 .setQuery(query, CatalogDetails.class)
                                 .build();
 
-                        ImageToShowAdapter adapter = new ImageToShowAdapter(options);
+                        final ImageToShowAdapter adapter = new ImageToShowAdapter(options);
                         adapter.setContext(ShowCatalogImages.this);
-                        recyclerView.setAdapter(adapter);
+                        //recyclerView.setAdapter(adapter);
                         adapter.startListening();
 
                     }

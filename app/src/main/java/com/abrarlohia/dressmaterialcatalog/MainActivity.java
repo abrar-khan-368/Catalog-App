@@ -126,6 +126,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                                 .setQuery(query, Category.class)
                                 .build();
                         HomeCategoryAdapter adapter = new HomeCategoryAdapter(options);
+                        adapter.setContext(MainActivity.this);
                         recyclerView.setAdapter(adapter);
                         adapter.startListening();
                     }

@@ -52,7 +52,6 @@ dependencies {
     //animation drawer
     implementation 'com.github.shrikanth7698:Custom-Navigation-Drawer:v0.0.1'
 
-
     implementation fileTree(dir: 'libs', include: ['*.aar', '*.jar'], exclude: [])
     //Youtube vale chale
     implementation files('libs\\YouTubeAndroidPlayerApi.jar')
