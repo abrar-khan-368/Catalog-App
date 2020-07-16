@@ -10,7 +10,6 @@ import android.app.ProgressDialog;
 import android.content.Intent;
 import android.database.Cursor;
 import android.net.Uri;
-import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Handler;
 import android.provider.OpenableColumns;
@@ -61,6 +60,8 @@ public class AddCatalog extends AppCompatActivity {
     private List<Uri> imageUriList;
     private ImageDisplayAdapter displayAdapter;
 
+    private ProgressDialog progressDialog;
+
     private String item;
 
     static List<String> uploadedImageLink = new ArrayList<>();
@@ -94,6 +95,8 @@ public class AddCatalog extends AppCompatActivity {
             public void onNothingSelected(AdapterView<?> parent) { }
         });
 
+        progressDialog = new ProgressDialog(this);
+
         showUploadedImages.setHasFixedSize(true);
         showUploadedImages.setLayoutManager(new LinearLayoutManager(AddCatalog.this));
         showUploadedImages.setAdapter(displayAdapter);
@@ -120,7 +123,7 @@ public class AddCatalog extends AppCompatActivity {
                         if(cost > 0) {
                             if(fileNameList != null) {
                                 firestore.collection("CatalogDetails")
-                                        .document(catalogName.getText().toString().toLowerCase())
+                                        .document(catalogName.getText().toString())
                                         .get()
                                         .addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
                                             @Override
@@ -166,8 +169,6 @@ public class AddCatalog extends AppCompatActivity {
                     imageUriList.add(imageUri);
                     String filename = getFileName(imageUri);
 
-
-
                     fileNameList.add(filename);
                     displayAdapter.notifyDataSetChanged();
                 }
@@ -179,9 +180,71 @@ public class AddCatalog extends AppCompatActivity {
     }
 
     private void uploadCatalogInformation(final int cost) {
+        final String[] link = new String[1];
+        for (int i = 0; i < fileNameList.size(); i++) {
+            StorageReference fileToUpload = storageReference.child("catalog-images")
+                    .child(System.currentTimeMillis() + fileNameList.get(i));
 
-        UploadFileTask fileTask = new UploadFileTask();
-        fileTask.execute();
+            fileToUpload.putFile(imageUriList.get(i))
+                    .addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+                        @Override
+                        public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+                            Task<Uri> urlTask = taskSnapshot.getStorage().getDownloadUrl();
+                            while (!urlTask.isSuccessful());
+                            final Uri downloadUri = urlTask.getResult();
+                            link[0] = downloadUri.toString();
+                            Log.d("DOWNLOAD", downloadUri.toString());
+                            uploadedImageLink.add(downloadUri.toString());
+
+                            firestore.collection("CatalogDetails")
+                                    .document(catalogName.getText().toString())
+                                    .set(new CatalogDetails(catalogName.getText().toString(),
+                                            cost+"", uploadedImageLink, item))
+                                    .addOnCompleteListener(new OnCompleteListener<Void>() {
+                                        @Override
+                                        public void onComplete(@NonNull Task<Void> task) {
+                                            if(task.isSuccessful()) {
+                                                FancyToast.makeText(AddCatalog.this, "Completed Successfully", FancyToast.LENGTH_SHORT, FancyToast.SUCCESS, true).show();
+                                                uploadedImageLink.clear();
+                                            }
+                                        }
+                                    })
+                                    .addOnSuccessListener(new OnSuccessListener<Void>() {
+                                        @Override
+                                        public void onSuccess(Void aVoid) {
+                                            FancyToast.makeText(AddCatalog.this, "Uploaded Successfully", FancyToast.LENGTH_SHORT, FancyToast.SUCCESS, true).show();
+                                        }
+                                    })
+                                    .addOnFailureListener(new OnFailureListener() {
+                                        @Override
+                                        public void onFailure(@NonNull Exception e) {
+                                            FancyToast.makeText(AddCatalog.this, e.getMessage(), FancyToast.LENGTH_SHORT, FancyToast.ERROR, true).show();
+                                        }
+                                    });
+
+                            progressDialog.hide();
+                        }
+                    })
+                    .addOnFailureListener(new OnFailureListener() {
+                        @Override
+                        public void onFailure(@NonNull Exception e) {
+                            FancyToast.makeText(AddCatalog.this, e.getMessage(),
+                                    FancyToast.LENGTH_SHORT, FancyToast.ERROR, true).show();
+                        }
+                    })
+                    .addOnProgressListener(new OnProgressListener<UploadTask.TaskSnapshot>() {
+                        @Override
+                        public void onProgress(@NonNull UploadTask.TaskSnapshot taskSnapshot) {
+                            progressDialog.setTitle("Status");
+                            int progress = (int)((100 * taskSnapshot.getBytesTransferred()) / taskSnapshot.getTotalByteCount());
+                            progressDialog.setMessage("Uploading..."+progress);
+                            progressDialog.show();
+                        }
+                    });
+
+        }
+
+
         //Log.d("HASHMAPIMAGE", uploadedImageLink.get("imageLink"+0));
 
 
@@ -241,79 +304,5 @@ public class AddCatalog extends AppCompatActivity {
         return result;
     }
 
-    private class UploadFileTask extends AsyncTask<Void, Void, Void> {
-
-        @Override
-        protected Void doInBackground(Void... voids) {
-
-            final String[] link = new String[1];
-            for (int i = 0; i < fileNameList.size(); i++) {
-                StorageReference fileToUpload = storageReference.child("catalog-images")
-                        .child(System.currentTimeMillis() + fileNameList.get(i));
-
-                fileToUpload.putFile(imageUriList.get(i))
-                        .addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
-                            @Override
-                            public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
-                                Task<Uri> urlTask = taskSnapshot.getStorage().getDownloadUrl();
-                                while (!urlTask.isSuccessful());
-                                final Uri downloadUri = urlTask.getResult();
-                                link[0] = downloadUri.toString();
-                                Log.d("DOWNLOAD", downloadUri.toString());
-                                uploadedImageLink.add(downloadUri.toString());
-
-                                firestore.collection("CatalogDetails")
-                                        .document(catalogName.getText().toString().toLowerCase())
-                                        .set(new CatalogDetails(catalogName.getText().toString(),
-                                                catalogCosting.getText().toString(), uploadedImageLink, item))
-                                        .addOnCompleteListener(new OnCompleteListener<Void>() {
-                                            @Override
-                                            public void onComplete(@NonNull Task<Void> task) {
-                                                if(task.isSuccessful()) {
-                                                    FancyToast.makeText(AddCatalog.this, "Completed Successfully", FancyToast.LENGTH_SHORT, FancyToast.SUCCESS, true).show();
-                                                    uploadedImageLink.clear();
-                                                }
-                                            }
-                                        })
-                                        .addOnSuccessListener(new OnSuccessListener<Void>() {
-                                            @Override
-                                            public void onSuccess(Void aVoid) {
-                                                FancyToast.makeText(AddCatalog.this, "Uploaded Successfully", FancyToast.LENGTH_SHORT, FancyToast.SUCCESS, true).show();
-                                            }
-                                        })
-                                        .addOnFailureListener(new OnFailureListener() {
-                                            @Override
-                                            public void onFailure(@NonNull Exception e) {
-                                                FancyToast.makeText(AddCatalog.this, e.getMessage(), FancyToast.LENGTH_SHORT, FancyToast.ERROR, true).show();
-                                            }
-                                        });
-                            }
-                        })
-                        .addOnFailureListener(new OnFailureListener() {
-                            @Override
-                            public void onFailure(@NonNull Exception e) {
-                                FancyToast.makeText(AddCatalog.this, e.getMessage(),
-                                        FancyToast.LENGTH_SHORT, FancyToast.ERROR, true).show();
-                            }
-                        })
-                        .addOnProgressListener(new OnProgressListener<UploadTask.TaskSnapshot>() {
-                            @Override
-                            public void onProgress(@NonNull UploadTask.TaskSnapshot taskSnapshot) {
-
-
-
-
-                                int progress = (int)((100 * taskSnapshot.getBytesTransferred()) / taskSnapshot.getTotalByteCount());
-                                FancyToast.makeText(AddCatalog.this, "Progress : "+progress, FancyToast.LENGTH_SHORT, FancyToast.INFO, true).show();
-                            }
-                        });
-
-            }
-
-            return null;
-        }
-    }
 
 }
-
-

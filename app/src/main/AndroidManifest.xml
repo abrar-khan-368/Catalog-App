@@ -15,8 +15,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         tools:ignore="LockedOrientationActivity">
-        <activity android:name=".UpdateCatalog"></activity>
-        <activity android:name=".ShowCatalogImageForClient" />
+        <activity android:name=".ShowCatalogImageForClient"></activity>
         <activity android:name=".ShowCatalogByCategory" />
         <activity android:name=".catalog_video" />
         <activity android:name=".ShowCatalogImages" />

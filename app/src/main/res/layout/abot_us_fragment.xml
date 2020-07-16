@@ -18,9 +18,8 @@
         android:layout_marginStart="10sp"
         android:layout_marginEnd="10sp"
         app:cardElevation="3sp"
-        app:cardCornerRadius="5sp"
+        app:cardCornerRadius="0sp"
         app:cardBackgroundColor="#fc9d9d"
-
         >
 
         <RelativeLayout
@@ -55,7 +54,7 @@
         android:layout_marginStart="10sp"
         android:layout_marginEnd="10sp"
         app:cardElevation="3sp"
-        app:cardCornerRadius="5sp"
+        app:cardCornerRadius="1sp"
         app:cardBackgroundColor="#fc9d9d">
 <RelativeLayout
     android:layout_width="match_parent"
