@@ -5,7 +5,11 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
+import android.view.View;
+import android.widget.ImageButton;
 
 import com.abrarlohia.dressmaterialcatalog.Adapters.ShowCatalogByCategoryAdapter;
 import com.abrarlohia.dressmaterialcatalog.Adapters.ShowCatalogDetailsAdapter;
@@ -25,6 +29,7 @@ public class ShowCatalogByCategory extends AppCompatActivity {
     private String categoryName;
     private RecyclerView recyclerView;
     private FirebaseFirestore firestore = FirebaseFirestore.getInstance();
+    private ImageButton btn_whatsapp_catalog;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,8 +40,14 @@ public class ShowCatalogByCategory extends AppCompatActivity {
         recyclerView = findViewById(R.id.catalog_by_category);
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
-
         fetchDataByCategory();
+        btn_whatsapp_catalog = findViewById(R.id.btn_whatsapp_catalog);
+        btn_whatsapp_catalog.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startSupportChat();
+            }
+        });
 
     }
 
@@ -47,7 +58,7 @@ public class ShowCatalogByCategory extends AppCompatActivity {
                 .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
                     @Override
                     public void onComplete(@NonNull Task<QuerySnapshot> task) {
-                        if(task.getResult().size() == 0)
+                        if (task.getResult().size() == 0)
                             FancyToast.makeText(ShowCatalogByCategory.this, "No Records found", FancyToast.LENGTH_SHORT, FancyToast.WARNING, true).show();
                     }
                 })
@@ -72,5 +83,16 @@ public class ShowCatalogByCategory extends AppCompatActivity {
                     }
                 });
 
+    }
+
+    private void startSupportChat() {
+        try {
+            String trimToNumner = "+919558021665"; //10 digit number
+            Intent intent = new Intent(Intent.ACTION_VIEW);
+            intent.setData(Uri.parse("https://wa.me/" + trimToNumner + "/?text=" + "Hello WomanTrend"));
+            startActivity(intent);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 }
