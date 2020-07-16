@@ -78,7 +78,7 @@ public class AddCatalog extends AppCompatActivity {
         catalogCosting = findViewById(R.id.catalog_costing);
         catalogName = findViewById(R.id.catalog_name);
         catalogCategory = findViewById(R.id.category_type);
-
+        catalogCategory.setPrompt("Select Catalog");
         fileNameList = new ArrayList<>();
         imageUriList = new ArrayList<>();
         displayAdapter = new ImageDisplayAdapter(fileNameList);

@@ -21,6 +21,8 @@ import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageButton;
+import android.widget.Toast;
 
 import com.InternetConnection;
 import com.abrarlohia.dressmaterialcatalog.Adapters.HomeCategoryAdapter;
@@ -45,6 +47,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     private DrawerLayout drawer;
     private Button btn_admin;
     private RecyclerView recyclerView;
+    private ImageButton btn_whatsapp;
 
     private FirebaseFirestore firestore = FirebaseFirestore.getInstance();
     private CollectionReference collection = firestore.collection("Categories");
@@ -53,6 +56,14 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        btn_whatsapp = findViewById(R.id.btn_whatsapp);
+        btn_whatsapp.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startSupportChat();
+            }
+        });
 
         //TODO: Check Internet
         if (InternetConnection.checkConnection(getApplicationContext())) {
@@ -91,7 +102,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         drawer.addDrawerListener(toggle);
         toggle.syncState();
 
-        if(drawer.isDrawerOpen(GravityCompat.START))
+        if (drawer.isDrawerOpen(GravityCompat.START))
             recyclerView.setVisibility(View.INVISIBLE);
         else
             recyclerView.setVisibility(View.VISIBLE);
@@ -253,6 +264,17 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
         NetworkInfo activeNetworkInfo = connectivityManager.getActiveNetworkInfo();
         return activeNetworkInfo != null && activeNetworkInfo.isConnected();
+    }
+
+    private void startSupportChat() {
+        try {
+            String trimToNumner = "+919558021665"; //10 digit number
+            Intent intent = new Intent(Intent.ACTION_VIEW);
+            intent.setData(Uri.parse("https://wa.me/" + trimToNumner + "/?text=" + "Hello WomanTrend"));
+            startActivity(intent);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
 }

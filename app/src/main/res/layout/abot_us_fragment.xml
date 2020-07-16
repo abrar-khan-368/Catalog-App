@@ -1,26 +1,26 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#ffc7c7"
-    >
+    android:background="#c9d6df">
+
     <androidx.cardview.widget.CardView
         android:id="@+id/name"
         android:layout_width="match_parent"
         android:layout_height="70sp"
-        android:layout_marginTop="5sp"
         android:layout_gravity="center"
+        android:layout_marginStart="10sp"
+        android:layout_marginTop="5sp"
+        android:layout_marginEnd="10sp"
+        app:cardBackgroundColor="#f0f5f9"
+        app:cardCornerRadius="0sp"
+        app:cardElevation="3sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        android:layout_marginStart="10sp"
-        android:layout_marginEnd="10sp"
-        app:cardElevation="3sp"
-        app:cardCornerRadius="0sp"
-        app:cardBackgroundColor="#fc9d9d"
-        >
+        app:layout_constraintTop_toTopOf="parent">
 
         <RelativeLayout
             android:id="@+id/name_owner"
@@ -48,142 +48,161 @@
         android:id="@+id/detalis"
         android:layout_width="match_parent"
         android:layout_height="460sp"
-        android:layout_marginTop="15dp"
         android:layout_gravity="center"
-        app:layout_constraintTop_toBottomOf="@+id/name"
         android:layout_marginStart="10sp"
+        android:layout_marginTop="15dp"
         android:layout_marginEnd="10sp"
-        app:cardElevation="3sp"
+        app:cardBackgroundColor="#f0f5f9"
         app:cardCornerRadius="1sp"
-        app:cardBackgroundColor="#fc9d9d">
-<RelativeLayout
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:id="@+id/details_layout">
-    <TextView
-        android:id="@+id/address"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentEnd="true"
-        android:layout_marginStart="10sp"
-        android:layout_marginEnd="100sp"
-        android:layout_marginTop="15sp"
-        android:fontFamily="@font/andika"
-        android:text="Address:"
-        android:textSize="20sp"
-        android:textStyle="bold" />
+        app:cardElevation="3sp"
+        app:layout_constraintTop_toBottomOf="@+id/name">
 
-    <TextView
-        android:id="@+id/woman"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentEnd="true"
-        android:layout_marginStart="10sp"
-        android:layout_marginTop="50sp"
-        android:layout_marginEnd="100sp"
-        android:fontFamily="@font/andika"
-        android:textSize="20sp"
-        android:textStyle="bold" />
-    <TextView
-        android:id="@+id/add_final"
-        android:text="Near Anmol waybridge Navagadh"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentEnd="true"
-        android:layout_marginStart="10sp"
-        android:layout_marginEnd="100sp"
-        android:layout_marginTop="85sp"
-        android:fontFamily="@font/andika"
-        android:textSize="20sp"/>
-    <TextView
-        android:id="@+id/ph_no"
-        android:text="Ph No:8000522226"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentEnd="true"
-        android:layout_marginStart="10sp"
-        android:layout_marginEnd="100sp"
-        android:layout_marginTop="150sp"
-        android:fontFamily="@font/andika"
-        android:textSize="20sp"/>
-    <View
-        android:id="@+id/view1"
-        android:layout_width="match_parent"
-        android:layout_marginTop="225sp"
-        android:layout_height="2sp"
-        android:layout_marginStart="10sp"
-        android:layout_marginEnd="20sp"
-        android:background="#827717"
-        />
-    <TextView
-        android:id="@+id/E-mail"
-        android:layout_marginTop="240sp"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentEnd="true"
-        android:layout_marginStart="10sp"
-        android:layout_marginEnd="100sp"
-        android:fontFamily="@font/andika"
-        android:text="E-mail:"
-        android:textSize="20sp"
-        android:textStyle="bold"
-        />
-    <TextView
-        android:id="@+id/mail"
-        android:layout_marginTop="280sp"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentEnd="true"
-        android:layout_marginStart="10sp"
-        android:layout_marginEnd="20sp"
-        android:fontFamily="@font/andika"
-        android:text="womantrend4@gmail.com"
-        android:textSize="18sp"
-        android:textStyle="bold" />
-    <View
-        android:id="@+id/view2"
-        android:layout_width="match_parent"
-        android:layout_marginTop="330sp"
-        android:layout_height="2dp"
-        android:layout_marginStart="10sp"
-        android:layout_marginEnd="20sp"
-        android:background="#827717"
-        />
-    <TextView
-        android:id="@+id/website"
-        android:layout_marginTop="340sp"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentEnd="true"
-        android:layout_marginStart="10sp"
-        android:layout_marginEnd="100sp"
-        android:fontFamily="@font/andika"
-        android:text="Web-Site"
-        android:textSize="20sp"
-        android:textStyle="bold"
-        />
+        <RelativeLayout
+            android:id="@+id/details_layout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
 
-    <TextView
-        android:id="@+id/site"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentEnd="true"
-        android:layout_marginStart="10sp"
-        android:layout_marginTop="370sp"
-        android:layout_marginEnd="100sp"
-        android:fontFamily="@font/andika"
-        android:text="Currently Unavaliable"
-        android:textSize="20sp" />
+            <TextView
+                android:id="@+id/address"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentStart="true"
+                android:layout_alignParentEnd="true"
+                android:layout_marginStart="10sp"
+                android:layout_marginTop="15sp"
+                android:layout_marginEnd="100sp"
+                android:fontFamily="@font/andika"
+                android:text="Address:"
+                android:textSize="20sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/woman"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentStart="true"
+                android:layout_alignParentEnd="true"
+                android:layout_marginStart="10sp"
+                android:layout_marginTop="50sp"
+                android:layout_marginEnd="100sp"
+                android:fontFamily="@font/andika"
+                android:textSize="20sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/add_final"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentStart="true"
+                android:layout_alignParentEnd="true"
+                android:layout_marginStart="10sp"
+                android:layout_marginTop="85sp"
+                android:layout_marginEnd="100sp"
+                android:fontFamily="@font/andika"
+                android:text="Near Anmol waybridge Navagadh"
+                android:textSize="20sp" />
+
+            <TextView
+                android:id="@+id/ph_no"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentStart="true"
+                android:layout_alignParentEnd="true"
+                android:layout_marginStart="10sp"
+                android:layout_marginTop="150sp"
+                android:layout_marginEnd="100sp"
+                android:fontFamily="@font/andika"
+                android:text="Ph No:8000522226"
+                android:textSize="20sp" />
+
+            <View
+                android:id="@+id/view1"
+                android:layout_width="match_parent"
+                android:layout_height="2sp"
+                android:layout_marginStart="10sp"
+                android:layout_marginTop="225sp"
+                android:layout_marginEnd="20sp"
+                android:background="#827717" />
+
+            <TextView
+                android:id="@+id/E-mail"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentStart="true"
+                android:layout_alignParentEnd="true"
+                android:layout_marginStart="10sp"
+                android:layout_marginTop="240sp"
+                android:layout_marginEnd="100sp"
+                android:fontFamily="@font/andika"
+                android:text="E-mail:"
+                android:textSize="20sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/mail"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentStart="true"
+                android:layout_alignParentEnd="true"
+                android:layout_marginStart="10sp"
+                android:layout_marginTop="280sp"
+                android:layout_marginEnd="20sp"
+                android:fontFamily="@font/andika"
+                android:text="womantrend4@gmail.com"
+                android:textSize="18sp"
+                android:textStyle="bold" />
+
+            <View
+                android:id="@+id/view2"
+                android:layout_width="match_parent"
+                android:layout_height="2dp"
+                android:layout_marginStart="10sp"
+                android:layout_marginTop="330sp"
+                android:layout_marginEnd="20sp"
+                android:background="#827717" />
+
+            <TextView
+                android:id="@+id/website"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentStart="true"
+                android:layout_alignParentEnd="true"
+                android:layout_marginStart="10sp"
+                android:layout_marginTop="340sp"
+                android:layout_marginEnd="100sp"
+                android:fontFamily="@font/andika"
+                android:text="Web-Site"
+                android:textSize="20sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/site"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentStart="true"
+                android:layout_alignParentEnd="true"
+                android:layout_marginStart="10sp"
+                android:layout_marginTop="370sp"
+                android:layout_marginEnd="100sp"
+                android:fontFamily="@font/andika"
+                android:text="Currently Unavaliable"
+                android:textSize="20sp" />
 
 
-</RelativeLayout>
+        </RelativeLayout>
     </androidx.cardview.widget.CardView>
+
+    <ImageButton
+        android:id="@+id/btn_whatsapp1"
+        android:layout_width="75dp"
+        android:layout_height="75dp"
+        app:backgroundTint="@android:color/transparent"
+        app:borderWidth="5dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.97"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.977"
+        app:srcCompat="@drawable/ic_whatsapp" />
 </androidx.constraintlayout.widget.ConstraintLayout>
