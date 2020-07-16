@@ -48,7 +48,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     private Button btn_admin;
     private RecyclerView recyclerView;
     private ImageButton btn_whatsapp;
-
     private FirebaseFirestore firestore = FirebaseFirestore.getInstance();
     private CollectionReference collection = firestore.collection("Categories");
 
