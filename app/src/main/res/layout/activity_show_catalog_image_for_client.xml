@@ -8,6 +8,7 @@
     tools:context=".ShowCatalogImageForClient">
 
     <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/image_recycler"
         android:layout_width="409dp"
         android:layout_height="657dp"
         app:layout_constraintBottom_toBottomOf="parent"

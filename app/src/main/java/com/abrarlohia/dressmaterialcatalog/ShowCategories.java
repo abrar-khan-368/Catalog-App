@@ -57,6 +57,7 @@ public class ShowCategories extends AppCompatActivity {
                         .build();
 
                 CategoryAdapter adapter = new CategoryAdapter(options);
+                adapter.setContext(ShowCategories.this);
                 showCategories.setAdapter(adapter);
                 adapter.startListening();
             }
